@@ -14,7 +14,7 @@ def trains(request):
 	if request.method == 'POST':
 		source = request.POST['source']
 		sourceArr = source.split(',')
-		sourceCity = sourceArr[0];
+		sourceCity = sourceArr[0]
 		destination = request.POST['destination']
 		destinationArr = destination.split(',')
 		destinationCity = destinationArr[0]
@@ -34,20 +34,19 @@ def trains(request):
 			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingEconomy__gt=0)
 			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
+			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
 		elif trainClass == 'business':	
 			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingBusiness__gt=0)
 			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
+			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
 		else:
 			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingFirst__gt=0)
 			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
+			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
 	else:
-		return render(request,
-				  'trains.html',)
+		return render(request, 'trains.html',)
 
 
 @csrf_exempt
@@ -58,9 +57,9 @@ def hotels(request):
 		locationCity = locationArr[0]
 		startdate = request.POST['startdate']
 		enddate = request.POST['enddate']
-		hotels = Hotel.objects.filter(city = locationCity)
+		hotels = Hotel.objects.filter(city=locationCity)
 		hotels = list(hotels)
-		return render(request, 'hotels.html', {'results':'yes', 'some_list': hotels})
+		return render(request, 'hotels.html', {'results': 'yes', 'some_list': hotels})
 	else:
 		return render(request, 'hotels.html')
 
@@ -77,22 +76,22 @@ def register(request):
 			return redirect('trains')
 		else:
 			for msg in form.error_messages:
-				messages.error(request, '{}:{}'.format(msg,form.error_messages[msg]))	
+				messages.error(request, '{}:{}'.format(msg, form.error_messages[msg]))	
 	form = NewUserForm()
-	return render(request, 'register.html', context = {'form':form})
+	return render(request, 'register.html', context={'form': form})
 
 
 @csrf_exempt
 def login_req(request):
 	if request.method == 'POST':
 		
-		form = AuthenticationForm(request , data=request.POST  )
+		form = AuthenticationForm(request , data=request.POST)
 		if form.is_valid():
 			username = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
 			user = authenticate(username=username,password=password)
 			if user is not None:
-				login(request,user)
+				login(request, user)
 				messages.info(request, 'You are now logged in as {}.'.format(username))
 				return redirect('hotels')
 			else:
@@ -100,9 +99,7 @@ def login_req(request):
 		else:
 			messages.error(request, 'Invalid username or password.')
 	form = AuthenticationForm()
-	return render(request,
-		'login.html',
-		{'form':form})
+	return render(request, 'login.html', {'form': form})
 
 
 def logout_req(request):
