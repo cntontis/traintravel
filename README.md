@@ -11,7 +11,7 @@ Install general python requirements:
 To run the project:
 
 * Open a terminal
-* Navigate inside the project tree
+* Navigate inside the project root
 * Execute: 
  ```
  python manager.py runserver
