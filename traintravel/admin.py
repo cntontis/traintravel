@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Bus, Hotel
+from .models import Train, Hotel
 
-class BusAdmin(admin.ModelAdmin):
+class TrainAdmin(admin.ModelAdmin):
     fieldsets = [
 		('Company', {'fields': ['companyName']}),
 		('From', {'fields': ['srcLocation']}),
@@ -22,5 +22,5 @@ class HotelAdmin(admin.ModelAdmin):
 		('Location', {'fields': ['location']}),
 	]
 
-admin.site.register(Bus, BusAdmin)
+admin.site.register(Train, TrainAdmin)
 admin.site.register(Hotel, HotelAdmin)
