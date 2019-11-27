@@ -1,0 +1,65 @@
+{% include "messages.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>TrainBook</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <nav class="cyan darken-3" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="/" class="brand-logo white-text ">TrainBook</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="white-text" href="/">Trains</a></li>
+        <li><a class="white-text" href="/hotels">Hotels</a></li>
+        {% if user.is_authenticated %}
+          <li><a class="white-text" href="/logout">Log Out</a></li>
+        {% else %}
+          <li><a class="white-text" href="/login">Log In</a></li>
+          <li><a class="white-text" href="/signup">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>    
+  </head>
+
+  <body>
+    <div class="container">
+    {% block content %}
+    {% endblock content %}
+    </div>
+  </body>
+  
+  <footer class="page-footer  cyan darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l8 s8">
+          <h5 class="white-text">ECE-542</h5>
+          <p class="white-text text-lighten-4">Database Systems II.</p>
+        </div>
+        <div class="col l4 s4">
+          <h5 class="white-text">Train Booking Application</h5>
+          <ul>
+            <li><a class="white-text">Semester project</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made with <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->  
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+</html>

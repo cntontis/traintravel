@@ -1,0 +1,15 @@
+/* Custom Stylesheet */
+nav ul a,
+nav .brand-logo {
+  color: #444;
+
+}
+
+p {
+  line-height: 2rem;
+}
+
+footer.page-footer {
+  margin: 0;
+  height: 200px;
+}

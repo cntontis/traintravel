@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <div id="index-banner">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row center">
+          <h5 class="header col s12 light">Book your accomodation</h5>
+        <div class="input-field col l6 s12">
+          <i class="material-icons prefix">hotel</i>
+          <input type="text" name="location" id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">Location</label>
+        </div>
+        <div class="input-field col l3 s6">
+          <i class="material-icons prefix">date_range</i>
+          <input type="text" name="startdate" class="datepicker">
+        </div>
+        <div class="input-field col l3 s6">
+          <i class="material-icons prefix">date_range</i>
+          <input type="text" name="enddate" class="datepicker">
+        </div>
+
+        </div>
+        <div class="row center">
+          <button class="btn waves-effect waves-light" style="width: 300px" type="submit">
+              <i class="large material-icons">search</i>
+            </button>
+        </div>
+        </form>
+
+        <br><br>
+
+      </div>
+    </div>
+  </div>
+
+  {% if results %}
+  <div class="row center">
+      <div class="col s12 m12">
+        {% for obj in some_list %}
+          <div class="card teal lighten-2">
+            <div class="card-content white-text">
+              <span class="card-title">{{obj.companyName}}</span>
+              <p>{{obj.address}}</p>
+              <p>{{obj.startDate}}</p>
+              <p>{{obj.dailyCost}}</p>
+            </div>
+            {% if request.session.current_user %} 
+            <div class="card-action">
+              <a href="{% url 'book' %}?type=hotel&id={{obj.id}}">Book Now</a>
+            </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div> 
+  {% endif %}
+
+{% endblock content %}
