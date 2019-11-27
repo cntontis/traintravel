@@ -1,3 +1,5 @@
+# Booking Application
+
 ## How to run the Project
 
 **The project requires the existance of Python 3.5 or higher.**

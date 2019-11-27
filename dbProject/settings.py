@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'traintravel.apps.TraintravelConfig',
+    'traintravel.apps.TrainTravelConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
