@@ -9,7 +9,7 @@ class User(models.Model):
 	password = models.CharField(max_length=20)
 
 
-class Train(models.Model):
+class Bus(models.Model):
 	companyName = models.CharField(max_length=30)
 	srcLocation = models.CharField(max_length=30)
 	destLocation = models.CharField(max_length=30)

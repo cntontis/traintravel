@@ -10,7 +10,7 @@ from .forms import NewUserForm
 
 
 # Create your views here.
-def trains(request):
+def buses(request):
 	if request.method == 'POST':
 		source = request.POST['source']
 		sourceArr = source.split(',')
@@ -25,29 +25,29 @@ def trains(request):
 		month = int(startdate[1])
 		day = int(startdate[2])
 		
-		trainClass = request.POST['class']
-		trains = Train.objects.filter(sourceLocation=sourceCity).filter(
+		busClass = request.POST['class']
+		buses = Bus.objects.filter(sourceLocation=sourceCity).filter(
 			destinationLocation=destinationCity).filter(departureDate=datetime.date(year, month, day))
-		trains = list(trains)
+		buses = list(buses)
 		
-		if trainClass == 'economy':
-			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
+		if busClass == 'economy':
+			buses = Bus.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingEconomy__gt=0)
-			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
-		elif trainClass == 'business':	
-			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
+			buses = list(buses)
+			return render(request, 'buses.html',{'results':'yes', 'some_list': buses, 'class':busClass})
+		elif busClass == 'business':	
+			buses = Bus.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingBusiness__gt=0)
-			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
+			buses = list(buses)
+			return render(request, 'buses.html',{'results':'yes', 'some_list': buses, 'class':busClass})
 		else:
-			trains = Train.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
+			buses = Bus.objects.filter(sourceLocation=sourceCity).filter(destinationLocation=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingFirst__gt=0)
-			trains = list(trains)
-			return render(request, 'trains.html',{'results':'yes', 'some_list': trains, 'class':trainClass})
+			buses = list(buses)
+			return render(request, 'buses.html',{'results':'yes', 'some_list': buses, 'class':busClass})
 	else:
 		return render(request,
-				  'trains.html',)
+				  'buses.html',)
 
 
 @csrf_exempt
@@ -74,7 +74,7 @@ def register(request):
 			messages.success(request, 'New Account Created: {}.'.format(username))
 			login(request, user)
 			messages.info(request, 'You are now logged in as {}.'.format(username))
-			return redirect('trains')
+			return redirect('buses')
 		else:
 			for msg in form.error_messages:
 				messages.error(request, '{}:{}'.format(msg,form.error_messages[msg]))	

@@ -9,14 +9,14 @@
         <form action="" method="POST">
           {% csrf_token %}
         <div class="row center">
-          <h5 class="header col s12 light">Find your next train</h5>
+          <h5 class="header col s12 light">Find your next bus</h5>
         <div class="input-field col l6 s12">
-          <i class="material-icons prefix">train</i>
+          <i class="material-icons prefix">bus</i>
           <input type="text" name="source" id="autocomplete-input" class="autocomplete">
           <label for="autocomplete-input">Source</label>
         </div>
         <div class="input-field col l6 s12">
-          <i class="material-icons prefix">train</i>
+          <i class="material-icons prefix">bus</i>
           <input type="text" name="destination" id="autocomplete-input" class="autocomplete">
           <label for="autocomplete-input">Destination</label>
         </div>
@@ -95,7 +95,7 @@
             </div>
             {% if request.session.current_user %} 
             <div class="card-action">
-              <a href="{% url 'book' %}?type=train&class={{class}}&id={{obj.id}}">Book Now</a>
+              <a href="{% url 'book' %}?type=bus&class={{class}}&id={{obj.id}}">Book Now</a>
             </div>
             {% endif %}
           </div>
