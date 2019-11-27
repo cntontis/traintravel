@@ -16,34 +16,31 @@ def trains(request):
 	if request.method == 'POST':
 		source = request.POST['source']
 		sourceArr = source.split(',')
-		sourceCity = sourceArr[0]
+		sourceCity = sourceArr[0].lower()
 		destination = request.POST['destination']
 		destinationArr = destination.split(',')
-		destinationCity = destinationArr[0]
-		
+		destinationCity = destinationArr[0].lower()
 		startdate = request.POST['startdate']
 		startdate = startdate.split('-')
 		year = int(startdate[0])
 		month = int(startdate[1])
 		day = int(startdate[2])
-		
 		trainClass = request.POST['class']
-		trains = Train.objects.filter(srcLocation=sourceCity).filter(
-			destLocation=destinationCity).filter(departureDate=datetime.date(year, month, day))
+		trains = Train.objects.filter(srcLocation__icontains=sourceCity).filter(
+			destLocation__icontains=destinationCity).filter(departureDate=datetime.date(year, month, day))
 		trains = list(trains)
-		
 		if trainClass == 'economy':
-			trains = Train.objects.filter(srcLocation=sourceCity).filter(destLocation=destinationCity).filter(
+			trains = Train.objects.filter(srcLocation__icontains=sourceCity).filter(destLocation__icontains=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingEconomy__gt=0)
 			trains = list(trains)
 			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
 		elif trainClass == 'business':	
-			trains = Train.objects.filter(srcLocation=sourceCity).filter(destLocation=destinationCity).filter(
+			trains = Train.objects.filter(srcLocation__icontains=sourceCity).filter(destLocation__icontains=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingBusiness__gt=0)
 			trains = list(trains)
 			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
 		else:
-			trains = Train.objects.filter(srcLocation=sourceCity).filter(destLocation=destinationCity).filter(
+			trains = Train.objects.filter(srcLocation__icontains=sourceCity).filter(destLocation__icontains=destinationCity).filter(
 				departureDate=datetime.date(year, month, day)).filter(numSeatsRemainingFirst__gt=0)
 			trains = list(trains)
 			return render(request, 'trains.html', {'results': 'yes', 'some_list': trains, 'class': trainClass})
@@ -56,10 +53,10 @@ def hotels(request):
 	if request.method == 'POST':
 		location = request.POST['location']
 		locationArr = location.split(',')
-		locationCity = locationArr[0]
+		locationCity = locationArr[0].lower()
 		startdate = request.POST['startdate']
 		enddate = request.POST['enddate']
-		hotels = Hotel.objects.filter(location=locationCity)
+		hotels = Hotel.objects.filter(location__icontains=locationCity)
 		hotels = list(hotels)
 		return render(request, 'hotels.html', {'results': 'yes', 'some_list': hotels})
 	else:
@@ -86,7 +83,6 @@ def register(request):
 @csrf_exempt
 def login_req(request):
 	if request.method == 'POST':
-		
 		form = AuthenticationForm(request , data=request.POST)
 		if form.is_valid():
 			username = form.cleaned_data.get('username')
